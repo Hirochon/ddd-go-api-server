@@ -1,0 +1,4 @@
+development:
+    dialect: mysql
+    datasource: ${MYSQL_USER}:${MYSQL_PASSWORD}@tcp(${MYSQL_HOST}:${MYSQL_PORT})/${MYSQL_DATABASE}?parseTime=true
+    dir: migrations

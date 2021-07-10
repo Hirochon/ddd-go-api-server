@@ -18,7 +18,6 @@ require (
 	github.com/go-swagger/go-swagger v0.27.0 // indirect
 	github.com/google/uuid v1.2.0 // indirect
 	github.com/jessevdk/go-flags v1.5.0
-	github.com/joho/godotenv v1.3.0 // indirect
 	github.com/rubenv/sql-migrate v0.0.0-20210614095031-55d5740dbbcc // indirect
 	github.com/spf13/viper v1.8.1 // indirect
 	go.mongodb.org/mongo-driver v1.5.4 // indirect
