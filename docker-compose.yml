@@ -1,0 +1,55 @@
+version: '3.8'
+services:
+  api:
+    image: golang:1.16.5-buster
+    tty: true
+    stdin_open: true
+    volumes:
+      - ./api:/go/src/work
+    working_dir: /go/src/work
+    ports:
+      - 8080:8080
+    depends_on:
+      - mysql
+      - mongo-db
+    environment:
+      - MYSQL_USER
+      - MYSQL_PASSWORD
+      - MYSQL_DATABASE
+      - MYSQL_PORT
+      - MYSQL_HOST
+      - MONGODB_USER
+      - MONGODB_PASSWORD
+      - MONGODB_DATABASE
+      - MONGODB_PORT
+
+  mysql:
+    image: mysql:5.7.31
+    environment:
+      - MYSQL_USER
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_PASSWORD
+      - MYSQL_DATABASE
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+      - ./tmp/config:/etc/mysql/conf.d
+
+  mongo-db:
+    image: mongo:4.0.0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGODB_DATABASE}
+      - TZ="Asia/Tokyo"
+    ports:
+        - 27017:27017
+    volumes:
+      - mongodb-data:/data/db
+
+volumes:
+  mysql-data:
+    driver: local
+  mongodb-data:
+    driver: local
