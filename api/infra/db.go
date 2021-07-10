@@ -11,7 +11,8 @@ import (
 )
 
 func Init() *entv1.Client {
-	return mysqlInit()
+	mysqlClient := mysqlInit()
+	return mysqlClient
 }
 
 func mysqlInit() *entv1.Client {
@@ -74,11 +75,11 @@ type myENV struct {
 	Err      error
 }
 
-func newENV() *myENV {
-	return &myENV{}
+func newENV() myENV {
+	return myENV{}
 }
 
-func (me *myENV) setEnvMyUser(s string) *myENV {
+func (me myENV) setEnvMyUser(s string) myENV {
 	if me.Err != nil {
 		return me
 	}
@@ -89,7 +90,7 @@ func (me *myENV) setEnvMyUser(s string) *myENV {
 	return me
 }
 
-func (me *myENV) setEnvMyPassword(s string) *myENV {
+func (me myENV) setEnvMyPassword(s string) myENV {
 	if me.Err != nil {
 		return me
 	}
@@ -100,7 +101,7 @@ func (me *myENV) setEnvMyPassword(s string) *myENV {
 	return me
 }
 
-func (me *myENV) setEnvMyHost(s string) *myENV {
+func (me myENV) setEnvMyHost(s string) myENV {
 	if me.Err != nil {
 		return me
 	}
@@ -111,7 +112,7 @@ func (me *myENV) setEnvMyHost(s string) *myENV {
 	return me
 }
 
-func (me *myENV) setEnvMyPort(s string) *myENV {
+func (me myENV) setEnvMyPort(s string) myENV {
 	if me.Err != nil {
 		return me
 	}
@@ -122,7 +123,7 @@ func (me *myENV) setEnvMyPort(s string) *myENV {
 	return me
 }
 
-func (me *myENV) setEnvMyDatabase(s string) *myENV {
+func (me myENV) setEnvMyDatabase(s string) myENV {
 	if me.Err != nil {
 		return me
 	}
@@ -133,6 +134,6 @@ func (me *myENV) setEnvMyDatabase(s string) *myENV {
 	return me
 }
 
-func (me *myENV) checkError() (*myENV, error) {
+func (me myENV) checkError() (myENV, error) {
 	return me, me.Err
 }
