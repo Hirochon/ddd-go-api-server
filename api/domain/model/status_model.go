@@ -15,7 +15,6 @@ func NewStatusID(id int) (*StatusID, error) {
 		err := errors.New("idは1以上の整数にしてください。")
 		return nil, err
 	}
-
 	statusID := StatusID(id)
 	return &statusID, nil
 }
