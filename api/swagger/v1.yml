@@ -1,0 +1,62 @@
+swagger: "2.0"
+
+info:
+  version: 0.1.0
+  title: ddd-go-api-server
+  description: |
+    - API定義書
+schemes:
+  - http
+host: localhost:8080
+basePath: /v1/
+tags:
+  - name: Hoge
+    description: hogehogeするとこ
+paths:
+  /{id}/status:
+    post:
+      summary: ステータスを作成する
+      tags:
+        - Hoge
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+        - name: body
+          in: body
+          required: true
+          schema:
+            type: object
+            properties:
+              title:
+                type: string
+                example: 迷走中
+              object:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    example: 2
+      responses:
+        201:
+          description: 成功
+          schema:
+            type: object
+            properties:
+                id:
+                  type: integer
+                  example: 2
+                title:
+                  type: string
+                  example: 迷走中
+        400:
+          description: 失敗
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Bad Request
