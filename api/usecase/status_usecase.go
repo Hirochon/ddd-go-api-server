@@ -3,10 +3,11 @@ package usecase
 import (
 	"api/domain/model"
 	"api/domain/repository"
+	"context"
 )
 
 type StatusUsecase interface {
-	Create(id int, title string) (*model.Status, error)
+	Create(id int, title string, ctx context.Context) (*model.Status, error)
 }
 
 type statusUsecase struct {
@@ -19,7 +20,7 @@ func NewStatusUsecase(statusRepo repository.IStatus) StatusUsecase {
 	}
 }
 
-func (su *statusUsecase) Create(id int, title string) (*model.Status, error) {
+func (su *statusUsecase) Create(id int, title string, ctx context.Context) (*model.Status, error) {
 	statusID, err := model.NewStatusID(id)
 	if err != nil {
 		return nil, err
@@ -28,8 +29,14 @@ func (su *statusUsecase) Create(id int, title string) (*model.Status, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &model.Status{
+
+	createdStatus, err := su.statusRepo.Create(&model.Status{
 		ID:    *statusID,
 		Title: *statusTitle,
-	}, nil
+	}, ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return createdStatus, nil
 }
