@@ -14,7 +14,6 @@ var addr = ":8080"
 func main() {
 	myClient := infra.Init()
 	defer myClient.Close()
-	fmt.Println(myClient)
 
 	statusRepository := infra.NewStatusRepository(myClient)
 	statusUsecase := usecase.NewStatusUsecase(statusRepository)

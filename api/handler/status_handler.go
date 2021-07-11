@@ -6,6 +6,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 )
 
@@ -38,7 +39,14 @@ func (sh *statusHandler) POST() func(http.ResponseWriter, *http.Request) {
 			return
 		}
 		// fmt.Fprintf(w, "もらった: %v\n", hoge.Title)
-		sh.statusUsecase.Create(int(hoge.Object.ID), hoge.Title, r.Context())
-		w.WriteHeader(http.StatusCreated)
+		createdStatus, err := sh.statusUsecase.Create(int(hoge.Object.ID), hoge.Title, r.Context())
+		if err != nil {
+			w.WriteHeader(http.StatusBadRequest)
+			fmt.Fprintf(w, "Bad Request! %v\n", err)
+			return
+		} else {
+			w.WriteHeader(http.StatusCreated)
+			log.Println("status was created: ", createdStatus)
+		}
 	}
 }
