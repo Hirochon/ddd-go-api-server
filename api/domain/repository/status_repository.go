@@ -1,7 +1,10 @@
 package repository
 
-import "api/domain/model"
+import (
+	"api/domain/model"
+	"context"
+)
 
 type IStatus interface {
-	Create(status *model.Status) (*model.Status, error)
+	Create(status *model.Status, ctx context.Context) (*model.Status, error)
 }

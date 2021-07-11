@@ -19,11 +19,15 @@ func NewStatusID(id int) (*StatusID, error) {
 	return &statusID, nil
 }
 
-func NewTitle(title string) (*StatusTitle, error) {
+func NewStatusTitle(title string) (*StatusTitle, error) {
 	if len(title) > 255 {
 		err := errors.New("タイトル255字以下にしてください。")
 		return nil, err
 	}
 	statusTitle := StatusTitle(title)
 	return &statusTitle, nil
+}
+
+func (t StatusTitle) ToString() string {
+	return string(t)
 }
